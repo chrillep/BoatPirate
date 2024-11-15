@@ -1,4 +1,5 @@
 import time
+import os
 import pandas as pd
 from bs4 import BeautifulSoup
 from selenium import webdriver
@@ -11,7 +12,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 options = Options()
 options.add_argument("--headless")
-service = Service("/opt/homebrew/bin/chromedriver")
+chromedriver_path = os.getenv("CHROMEDRIVER_PATH", "/opt/homebrew/bin/chromedriver")
 driver = webdriver.Chrome(service=service, options=options)
 
 url = "https://sokbat.se/modeller"
