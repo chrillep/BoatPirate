@@ -15,7 +15,11 @@ options.add_argument("--headless")
 options.add_argument("--no-sandbox")  # Bypass sandboxing for restricted environments
 options.add_argument("--disable-dev-shm-usage")  # Avoid shared memory limitations
 
+# Default to local ChromeDriver path, override if CHROMEDRIVER_PATH is set
 chromedriver_path = os.getenv("CHROMEDRIVER_PATH", "/opt/homebrew/bin/chromedriver")
+service = Service(chromedriver_path)
+
+# Initialize WebDriver
 driver = webdriver.Chrome(service=service, options=options)
 
 url = "https://sokbat.se/modeller"
