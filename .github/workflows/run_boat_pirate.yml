@@ -29,7 +29,9 @@ jobs:
       uses: browser-actions/setup-chrome@v1
       with:
         chrome-version: 'latest'
+        install-dependencies: true
         install-chromedriver: true
+        chrome-version: 131
 
     - name: Run BoatPirate script
       run: python boat_pirate.py
