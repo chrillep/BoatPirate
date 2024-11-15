@@ -12,6 +12,9 @@ from selenium.webdriver.support import expected_conditions as EC
 
 options = Options()
 options.add_argument("--headless")
+options.add_argument("--no-sandbox")  # Bypass sandboxing for restricted environments
+options.add_argument("--disable-dev-shm-usage")  # Avoid shared memory limitations
+
 chromedriver_path = os.getenv("CHROMEDRIVER_PATH", "/opt/homebrew/bin/chromedriver")
 driver = webdriver.Chrome(service=service, options=options)
 
