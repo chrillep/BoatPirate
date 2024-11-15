@@ -2,17 +2,11 @@ name: Run BoatPirate Script
 
 on:
   workflow_dispatch: # Allows manual triggering of the workflow
-    inputs:
-        # change timeout based on input value
-        timeout_minutes:
-            description: 'Timeout in minutes'
-            required: true
-            default: 30
-            type: number
+
 jobs:
   run-boat-pirate:
     runs-on: ubuntu-latest
-    timeout-minutes: ${{ github.event.inputs.timeout_minutes }}
+    timeout-minutes: 30
     concurrency:
       group: staging
       cancel-in-progress: true
