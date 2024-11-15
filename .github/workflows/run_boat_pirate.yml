@@ -34,12 +34,22 @@ jobs:
     - name: Run BoatPirate script
       run: python boat_pirate.py
 
-    - name: Commit changes
+    - name: Git diff Changes
+      id: git-diff
+      run: git diff
+
+    - name: Set vars
+      id: vars
       run: |
-        git config --global user.name "GitHub Actions"
-        git config --global user.email "actions@github.com"
-        git add boat_models.csv
-        git commit -m "Newly pirated boats $(date)"
-        git push
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v5
+      with:
+        commit-message: Newly pirated boats ${{ steps.vars.outputs.date }}
+        title: Newly pirated boats ${{ steps.vars.outputs.date }}
+        body: Newly pirated boats ${{ steps.vars.outputs.date }}
+        labels: "pirating, automated pr"
+        branch: pirating/${{ steps.vars.outputs.date }}
+        base: main
+        add-paths: "boat_models.csv"
